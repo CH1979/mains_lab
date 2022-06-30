@@ -20,12 +20,12 @@ urlpatterns = [
     ),
     path(
         'bills/',
-        BillsFileUploadAPIView.as_view(),
+        BillListAPIView.as_view(),
         name='bills',
     ),
     path(
-        'bills/',
-        BillListAPIView.as_view(),
+        'bills/upload/',
+        BillsFileUploadAPIView.as_view(),
         name='bills-upload',
     )
 ]

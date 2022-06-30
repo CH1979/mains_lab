@@ -1,18 +1,33 @@
+import celery
 from django.db import models
+from django.dispatch import receiver
 
 
 class ClientOrgsFile(models.Model):
     """Client-organization file model"""
     name = models.FileField(
-        upload_to='clients',
+        upload_to='clients/',
     )
+    
+    def __str__(self):
+        return self.name
+
+
+# @receiver(models.signals.post_save, sender=ClientOrgsFile)
+# def run_clients_file_preprocessing(sender, instance, created, *args, **kwargs):
+#     celery.current_app.send_task('api.tasks.read_client_org_file', (instance.pk, ))
 
 
 class BillsFile(models.Model):
     """Bills file model"""
     name = models.FileField(
-        upload_to='bills',
+        upload_to='bills/',
     )
+
+
+@receiver(models.signals.post_save, sender=BillsFile)
+def run_bills_file_preprocessing(sender, instance, created, *args, **kwargs):
+    celery.current_app.send_task('api.tasks.read_bills_file', (instance.pk, ))
 
 
 class Client(models.Model):

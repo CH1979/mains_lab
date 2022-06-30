@@ -10,16 +10,20 @@ from .serializers import (
 
 
 class ClientOrgsFileUploadAPIView(CreateAPIView):
-    pass
+    queryset = ClientOrgsFile.objects.all()
+    serializer_class = ClientOrgsFileSerializer
 
 
 class BillsFileUploadAPIView(CreateAPIView):
-    pass
+    queryset = BillsFile.objects.all()
+    serializer_class = BillsFileSerializer
 
 
 class ClientListAPIView(ListAPIView):
-    pass
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
 
 
 class BillListAPIView(ListAPIView):
-    pass
+    queryset = Bill.objects.all()
+    serilizer_class = BillSerializer

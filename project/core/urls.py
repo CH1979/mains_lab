@@ -16,7 +16,7 @@ urlpatterns = [
         template_name='docs.html',
         extra_context={'schema_url': 'openapi-schema'},
     ), name="docs"),
-    path('openapi', get_schema_view(
+    path('openapi/', get_schema_view(
         title="Test Task Project",
         description="API",
         version="1.0.0",
