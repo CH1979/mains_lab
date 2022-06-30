@@ -1,20 +1,26 @@
+import random
+from string import whitespace
 from typing import Dict
 
-
-SERVICE_CLASSES = {
-    1: 'консультация',
-    2: 'лечение',
-    3: 'стационар',
-    4: 'диагностика',
-    5: 'лаборатория'
-}
+from django.conf import settings
 
 
 def detect_fraud(service: str) -> float:
-    pass
+    return random.random()
 
 def classify_service(service: str) -> Dict:
-    pass
+    service_class = random.choice(
+        list(settings.SERVICE_CLASSES.keys())
+    )
+    service_name = settings.SERVICE_CLASSES[service_class]
+    service = {
+        'service_class': service_class,
+        'service_name': service_name
+    }
+    return service
 
 def preprocess_address(address: str) -> str:
-    pass
+    if (address in whitespace) or (address == '-'):
+        return ''
+    else:
+        return 'Адрес: {}'.format(address)
