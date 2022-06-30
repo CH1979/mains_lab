@@ -12,6 +12,9 @@ cодержащий secret key для django.
 * Запустить docker-контейнеры командой:
 `docker-compose up -d --build`
 
+
+TODO:
+
 API будет доступно по адресу: http://127.0.0.1:1337/api/v1/
 
 Документация API: http://127.0.0.1:1337/docs/
