@@ -1,0 +1,11 @@
+celery~=4.4
+Django~=3.2
+djangorestframework~=3.12
+flower~=0.9.7
+pyyaml~=6.0
+redis~=3.5
+requests~=2.27
+uritemplate~=4.1
+
+pytest~=6.2
+pytest-django~=4.4
