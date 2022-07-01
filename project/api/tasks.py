@@ -37,12 +37,16 @@ def save_bills(bills: pd.DataFrame) -> None:
     """Save bills"""
     objs = []
     for _, row in bills.iterrows():
-        client, _ = Client.objects.get_or_create(
-            name=row['client_name']
-        )
-        organization, _ = Organization.objects.get_or_create(
-            name=row['client_org']
-        )
+        try:
+            client = Client.objects.get(name=row['client_name'])
+        except Client.DoesNotExist:
+            break
+
+        try:
+            organization = Organization.objects.get(name=row['client_org'])
+        except Organization.DoesNotExist:
+            break
+
         service = classify_service(row['service'])
         fraud_score = detect_fraud(row['service'])
 
