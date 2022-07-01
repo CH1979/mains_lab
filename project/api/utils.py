@@ -6,9 +6,13 @@ from django.conf import settings
 
 
 def detect_fraud(service: str) -> float:
+    """Detect fraud bills"""
     return random.random()
 
+
 def classify_service(service: str) -> Dict:
+    """Classify service"""
+
     service_class = random.choice(
         list(settings.SERVICE_CLASSES.keys())
     )
@@ -19,7 +23,10 @@ def classify_service(service: str) -> Dict:
     }
     return service
 
+
 def preprocess_address(address: str) -> str:
+    """Preprocess address"""
+
     if (address in whitespace) or (address == '-'):
         return ''
     else:

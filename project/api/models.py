@@ -13,9 +13,14 @@ class ClientOrgsFile(models.Model):
         return self.name
 
 
-# @receiver(models.signals.post_save, sender=ClientOrgsFile)
-# def run_clients_file_preprocessing(sender, instance, created, *args, **kwargs):
-#     celery.current_app.send_task('api.tasks.read_client_org_file', (instance.pk, ))
+@receiver(models.signals.post_save, sender=ClientOrgsFile)
+def run_clients_file_preprocessing(sender, instance, created, *args, **kwargs):
+    """Run Celery task for preprocessing ClientOrgs file"""
+    if created:
+        celery.current_app.send_task(
+            'api.tasks.read_client_org_file',
+            (instance.pk, )
+        )
 
 
 class BillsFile(models.Model):
@@ -27,7 +32,12 @@ class BillsFile(models.Model):
 
 @receiver(models.signals.post_save, sender=BillsFile)
 def run_bills_file_preprocessing(sender, instance, created, *args, **kwargs):
-    celery.current_app.send_task('api.tasks.read_bills_file', (instance.pk, ))
+    """Run Celery task for preprocessing Bills file"""
+    if created:
+        celery.current_app.send_task(
+            'api.tasks.read_bills_file',
+            (instance.pk, )
+        )
 
 
 class Client(models.Model):
@@ -36,6 +46,9 @@ class Client(models.Model):
         max_length=50,
         unique=True,
     )
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Organization(models.Model):
@@ -56,6 +69,9 @@ class Organization(models.Model):
 
     class Meta:
         unique_together = [['name', 'client']]
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Bill(models.Model):
@@ -83,3 +99,11 @@ class Bill(models.Model):
 
     class Meta:
         unique_together = [['organization', 'number']]
+
+    def __str__(self) -> str:
+        return '{} - {} № {} - {}'.format(
+            self.client,
+            self.organization,
+            self.number,
+            self.bill_sum
+        )
