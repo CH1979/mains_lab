@@ -2,11 +2,14 @@ import celery
 from django.db import models
 from django.dispatch import receiver
 
+from .validators import validate_upload_file
+
 
 class ClientOrgsFile(models.Model):
     """Client-organization file model"""
     name = models.FileField(
         upload_to='clients/',
+        validators=[validate_upload_file],
     )
     
     def __str__(self):
@@ -27,6 +30,7 @@ class BillsFile(models.Model):
     """Bills file model"""
     name = models.FileField(
         upload_to='bills/',
+        validators=[validate_upload_file],
     )
 
 
