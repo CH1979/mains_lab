@@ -1,7 +1,7 @@
 from django.db.models import Count, Sum
 from rest_framework.generics import CreateAPIView, ListAPIView
 
-from .models import Bill, BillsFile, Client, ClientOrgsFile, Organization
+from .models import Bill, BillsFile, Client, ClientOrgsFile
 from .serializers import (
     BillSerializer,
     BillsFileSerializer,
@@ -11,16 +11,19 @@ from .serializers import (
 
 
 class ClientOrgsFileUploadAPIView(CreateAPIView):
+    """APIView for upload ClientOrg xlsx file"""
     queryset = ClientOrgsFile.objects.all()
     serializer_class = ClientOrgsFileSerializer
 
 
 class BillsFileUploadAPIView(CreateAPIView):
+    """APIView for upload Bills xlsx file"""
     queryset = BillsFile.objects.all()
     serializer_class = BillsFileSerializer
 
 
 class ClientListAPIView(ListAPIView):
+    """ListAPIView for Clients"""
     serializer_class = ClientSerializer
 
     def get_queryset(self):
@@ -32,6 +35,7 @@ class ClientListAPIView(ListAPIView):
 
 
 class BillListAPIView(ListAPIView):
+    """ListAPIView for Bills"""
     serializer_class = BillSerializer
 
     def get_queryset(self):
