@@ -55,6 +55,39 @@ class Client(models.Model):
         return self.name
 
 
+class Schema(models.Model):
+    client_field_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    org_field_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    number_field_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    sum_field_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    date_field_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    service_field_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+
 class Organization(models.Model):
     """Organizaton model"""
     name = models.CharField(
